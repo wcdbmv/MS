@@ -22,6 +22,9 @@
 \usepackage{commath}
 \usepackage{icomma}
 
+\usepackage[unicode,pdftex]{hyperref} % Ссылки в pdf
+\hypersetup{hidelinks}
+
 %% begin theorem
 \usepackage{amsthm}
 
@@ -77,7 +80,7 @@
 \end{definition}
 
 \begin{example}
-	\label{xmp:coin-toss-sample-space}
+	\label{xmp:sample-space-coin-toss}
 	Пусть опыт состоит в однократном подбрасывании монеты.
 	$\Omega = \{\text{А}, \text{Р}\}$, где $\text{А}$ — аверс, $\text{Р}$ — реверс.
 
@@ -85,7 +88,7 @@
 \end{example}
 
 \begin{example}
-	\label{xmp:dice-toss-sample-space}
+	\label{xmp:sample-space-dice-toss}
 	При однократном бросании игральной кости возможен любой из шести элементарных исходов $\omega_1, \dots, \omega_6$, где $\omega_i, i=\overline{1, 6}$, означает появление $i$ очков на верхней грани кости.
 	$\Omega = \{\omega_i,\quad i = \overline{1, 6}\}$.
 
@@ -117,7 +120,18 @@
 	Невозможное событие будем обозначать символом $\varnothing$.
 \end{definition}
 
-% Примеры самостоятельно
+\begin{example}
+	\label{xmp:event-balls}
+	Из урны, содержащей 2 красных и 3 синих шара, вынимают случайным образом 1 шар.
+
+	$A = \{ \text{извлечён белый шар} \} = \varnothing$,
+	$B = \{ \text{извлечён красный или синий шар} \} = \Omega$.
+\end{example}
+
+\begin{example}
+	\label{xmp:event-dice-toss}
+	При бросании игральной кости достоверное событие можно описать, например, как выпадение хотя бы одного очка, а невозможно — как выпадение 7 очков.
+\end{example}
 
 Рассмотрим \define{операции (действия) над событиями}, которые, по существу, совпадают с операциями над подмножествами.
 \begin{itemize}
@@ -144,10 +158,28 @@
 	\end{equation}
 \end{definition}
 
+Свойства, следующие из классического определения вероятности:
+\begin{enumerate}
+	\item $P(A) \geqslant 0$
+	\item $P(\Omega) = 1$
+	\item Если $AB = \varnothing$, то $P(A + B) = P(A) + P(B)$
+\end{enumerate}
+
+Доказательства этих свойств:
+\begin{enumerate}
+	\item $N_A \geqslant 0,\; N > 0 \Rightarrow P(A) \geqslant 0$
+	\item $\displaystyle P(\Omega) = \frac{\abs \Omega}{N} = \frac{N}{N} = 1$
+	\item По формуле включения и исключения: $\abs{A+ B} = \abs{A} + \abs{B} - \abs{AB} = \abs{A} + \abs{B}$.
+	Таким образом, $N_{A+B} = N_A + N_B$ и $\displaystyle P(A + B) = \frac{N_A + N_B}{N} = P(A) + P(B)$.
+\end{enumerate}
+
 \section{Определение пространства элементарных исходов, примеры.
 Понятие события (нестрогое).
 Сформулировать геометрическое и статистическое определения вероятности.
 Достоинства и недостатки этих определений}
+
+Определение пространства элементарных исходов: \ref{def:sample-space}, примеры: \ref{xmp:sample-space-coin-toss}, \ref{xmp:sample-space-dice-toss}.
+Понятие события (нестрогое): \ref{def:event}.
 
 \section{Определение пространства элементарных исходов, примеры.
 Сформулировать определение сигма-алгебры событий.
