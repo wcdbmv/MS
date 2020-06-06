@@ -1,0 +1,146 @@
+\documentclass[a4paper,oneside,12pt]{extreport}
+
+\include{preamble}
+
+\begin{document}
+
+\include{title}
+
+\paragraph{Цель работы:} построение гистограммы и эмпирической функции распределения.
+
+\paragraph{Содержание работы}
+
+\begin{enumerate}
+	\item Для выборки объёма $n$ из генеральной совокупности $X$ реализовать в виде программы на ЭВМ
+	\begin{itemize}
+		\item вычисление максимального значения $M_{\max}$ и минимального значения $M_{\min}$;
+		\item размаха $R$ выборки;
+		\item вычисление оценок $\hat\mu$ и $S^2$ математического ожидания $MX$ и дисперсии $DX$;
+		\item группировку значений выборки в $m = [\log_2 n] + 2$ интервала;
+		\item построение на одной координатной плоскости гистограммы и графика функции плотности распределения вероятностей нормальной случайной величины с математическим ожиданием $\hat{\mu}$ и дисперсией $S^2$;
+		\item построение на другой координатной плоскости графика эмпирической функции распределения и функции распределения нормальной случайной величины с математическим ожиданием $\hat{\mu}$ и дисперсией $S^2$.
+	\end{itemize}
+	\item Провести вычисления и построить графики для выборки из индивидуального варианта.
+\end{enumerate}
+
+\pagebreak
+\section{Формулы для вычисления величин}
+
+\subsection{Минимальное и максимальное значения выборки}
+\begin{gather}
+	M_{\max} = x_{(n)},\\
+	M_{\min} = x_{(1)}.
+\end{gather}
+
+\subsection{Размах выборки}
+\begin{equation}
+	R = M_{\max} - M_{\min}.
+\end{equation}
+
+\subsection{Оценки математического ожидания и дисперсии}
+\begin{align}
+	\hat\mu(\vec x_n) &= \frac 1n \sum_{i=1}^n x_i,\\
+	S^2(\vec x_n) &= \frac 1{n-1} \sum_{i=1}^n (x_i-\overline x_n)^2.
+\end{align}
+
+\pagebreak
+\section{Эмпирическая плотность и гистограмма}
+
+Отрезок $J = [x_{(1)}, x_{(n)}]$, содержащий все выборочные значения, разбивают на $m$ промежутков $J_i$, как правило одинаковой длины $\Delta$.
+При этом считают, что каждый промежуток содержит свой левый конец, но лишь последний промежуток содержит и свой правый конец.
+Для каждого промежутка $J_i$, $i = \overline{1,m}$, подсчитывают число $n_k$ элементов выборки, попавших в него (при этом $n = n_1 + \ldots + n_m$).
+
+\begin{definition}
+	{\itshape\bfseries Эмпирической плотностью распределения}, соответствующей реализации $\vec x_n$ случайной выборки $\vec X_n$ из генеральной совокупности $X$, называют функцию $p_n(x)$, которая во всех точках интервала $J_i, i=\overline{1,m}$, принимает значение $\frac{n_i}{n\Delta}$, а вне интервала $J$ равна нулю, т.~е.
+	\begin{equation}
+		p_n(x) = \begin{cases}
+			\frac{n_{i}}{n\Delta}, & x\in J_{i};\\
+			0,                     & x\notin J.
+		\end{cases}
+	\end{equation}
+\end{definition}
+
+График функции $p_n(x)$, представляющий собой кусочно постоянную функцию на промежутке $J = [z_{(1)}, z_{(m)}]$, называют {\itshape\bfseries гистограммой} (см. рис. \ref{img:bar-chart}).
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{inc/img/bar-chart}
+	\caption{}
+	\label{img:bar-chart}
+\end{figure}
+
+\pagebreak
+\section{Эмпирическая функция распределения}
+
+\begin{definition}
+	{\itshape\bfseries Эмпирической функцией распределения} называют скалярную функцию $F_n(x)$, которая определена для любого $x\in\mathbb R$ следующим образом:
+	\begin{equation}
+		F_n = \frac{n(x)}n,
+	\end{equation}
+	где $n$ — объём выборки.
+\end{definition}
+
+Функция $F_n(x)$ обладает всеми свойствами функции распределения.
+При этом она кусочно постоянна и изменяется скачками в каждой точке $x_{(i)}$ ($x_{(i)}$ — $i$-й член вариационного ряда).
+
+Если все выборочные значения $x_1, \ldots, x_n$ различны, то функцию $F_n(x)$ можно записать в следующем виде:
+\begin{equation}
+	F_n(x) = \begin{cases}
+		0,        & x \leqslant x_{(1)};\\
+		\frac in, & x_{(i)} < x \leqslant x_{(i+1)}, \; i=\overline{1,n-1};\\
+		1,        & x \geqslant x_{(n)},
+	\end{cases}
+\end{equation}
+т.~е. в каждой точке $x_{(i)}$ функция $F_n(x)$ имеет скачок величиной $1/n$.
+
+График функции $F_n(x)$ изображён на рис. \ref{img:F}.
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{inc/img/F}
+	\caption{}
+	\label{img:F}
+\end{figure}
+
+\begin{remark}
+	Функция $F_n(x)$ позволяет любую выборку $(x_1, \ldots, x_n)$ интерпретировать как генеральную совокупность $\widetilde X$, все значения которой равновероятны, т.~е.
+	\begin{equation}
+		\mathbf P\{\widetilde X=x_i\}=\frac1n,\quad i=\overline{1,n}.
+	\end{equation}
+	Это позволяет рассматривать числовые характеристики случайной величины $\widetilde{X}$ как приближённые значения числовых характеристик случайной величины $X$.
+\end{remark}
+
+\pagebreak
+\section{Текст программы}
+
+\lstinputlisting[language=Matlab]{../lab1.m}
+
+\pagebreak
+\section{Результаты расчётов}
+
+\begin{align*}
+	M_{\min}          &= -10,11; \\
+	M_{\max}          &= -5,2;   \\
+	R                 &= 4,91;   \\
+	\hat\mu(\vec X_n) &= -7,6609;\\
+	S^2(\vec X_n)     &= 0,7779; \\
+	m                 &= 8.
+\end{align*}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{inc/img/figure1}
+	\caption{Гистограмма и график функции плотности распределения вероятностей нормальной случайной величины}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.6\linewidth]{inc/img/figure2}
+	\caption{График выборочной функции распределения и функции распределения нормальной случайной величины}
+\end{figure}
+
+\end{document}
+
+
+
+
