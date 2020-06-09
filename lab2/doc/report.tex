@@ -1,0 +1,91 @@
+\documentclass[a4paper,oneside,12pt]{extreport}
+
+\include{preamble}
+
+\begin{document}
+
+\include{title}
+
+\paragraph{Цель работы:} построение доверительных интервалов для математического ожидания и дисперсии нормальной случайной величины.
+
+\paragraph{Содержание работы}
+
+\begin{enumerate}
+	\item Для выборки объема $n$ из нормальной генеральной совокупности $X$ реализовать в виде программы на ЭВМ
+	\begin{itemize}
+		\item вычисление точечных оценок $\hat\mu(\vec X_n)$ и $S^2(\vec X_n)$ математического ожидания $MX$ и дисперсии $DX$ соответственно;
+		\item вычисление нижней и верхней границ $\underline\mu(\vec X_n)$, $\overline\mu(\vec X_n)$ для $\gamma$-доверительного интервала для математического ожидания $MX$;
+		\item вычисление нижней и верхней границ $\underline\sigma^2(\vec X_n)$, $\overline\sigma^2(\vec X_n)$ для $\gamma$-доверительного интервала для дисперсии $DX$;
+	\end{itemize}
+	\item вычислить $\hat\mu$ и $S^2$ для выборки из индивидуального варианта;
+	\item для заданного пользователем уровня доверия $\gamma$ и $N$ – объёма выборки из индивидуального варианта:
+	\begin{itemize}
+		\item на координатной плоскости $Oyn$ построить прямую $y = \hat\mu(\vec{x_N})$, также графики функций $y = \hat\mu(\vec x_n)$, $y = \underline\mu(\vec x_n)$ и $y = \overline\mu(\vec x_n)$ как функций объема $n$ выборки, где $n$ изменяется от 1 до $N$;
+		\item на другой координатной плоскости $Ozn$ построить прямую $z = S^2(\vec{x_N})$, также графики функций $z = S^2(\vec x_n)$, $z = \underline\sigma^2(\vec x_n)$ и $z = \overline\sigma^2(\vec x_n)$ как функций объема $n$ выборки, где $n$ изменяется от 1 до $N$.
+	\end{itemize}
+\end{enumerate}
+
+\pagebreak
+\section{Определение $\gamma$-доверительного интервала}
+
+Пусть $\vec X_n$ — \textit{случайная выборка объема $n$} из \textit{генеральной совокупности $X$} с функцией распределения $F(x;\theta)$, зависящей от параметра $\theta$, значение которого неизвестно.
+Предположим, что для параметра $\theta$ построен интервал $\left(\underline\theta(\vec X_n), \overline\theta(\vec X_n)\right)$, где $\underline\theta(\vec X_n)$ и $\overline\theta(\vec X_n)$ являются функциями случайной выборки $\vec X_n$, такими, что выполняется равенство
+\begin{equation}
+	\mathbf P \left\{ \underline\theta(\vec X_n) < \theta < \overline\theta(\vec X_n) \right\} = \gamma.
+\end{equation}
+В этом случае интервал $\left(\underline\theta(\vec X_n), \overline\theta(\vec X_n)\right)$ называют {\itshape\bfseries интервальной оценкой} для параметра $\theta$ с {\itshape\bfseries коэффициентом доверия $\gamma$} (или, сокращенно, {\itshape\bfseries $\gamma$-доверительной интервальной оценкой}), а $\underline\theta(\vec X_n)$ и $\overline\theta(\vec X_n)$ соответственно {\itshape\bfseries нижней} и {\itshape\bfseries верхней границами} интервальной оценки.
+
+Интервал $\left(\underline\theta(\vec x_n), \overline\theta(\vec x_n)\right)$ называют {\itshape\bfseries доверительным интервалом} для параметра $\theta$ с коэффициентом доверия $\gamma$ или {\itshape\bfseries $\gamma$-доверительным интервалом}.
+
+\section{Границы $\gamma$-доверительного интервала}
+
+Пусть $\vec X_n$ — случайная выборка объема $n$ из генеральной совокупности $X$, распределенной по нормальному закону с параметрами $\mu$ и $\sigma^{2}$.
+
+\subsection{Оценка для математического ожидания}
+
+\begin{align}
+	\underline\mu(\vec X_n) &= \overline X -\frac{S(\vec X_n)}{\sqrt n}t_{1-\alpha}(n-1),\\
+	\overline\mu(\vec X_n)  &= \overline X +\frac{S(\vec X_n)}{\sqrt n}t_{1-\alpha}(n-1),
+\end{align}
+где $\overline X$ — оценка мат. ожидания, $n$ — число опытов, $S(\vec X_n)$ — точечная оценка дисперсии случайной выборки $\vec X_n$, $t_{1-\alpha}(n-1)$ — квантиль уровня $1-\alpha$ для распределения Стьюдента с $n-1$ степенями свободы, $\alpha$ — величина, равная $\displaystyle \frac{(1-\gamma)}2$.
+
+\subsection{Оценка для дисперсии}
+
+\begin{align}
+	\underline\sigma^2(\vec X_n) & = \frac{S(\vec X_n)(n-1)}{\chi_{1-\alpha}^2(n-1)},\\
+	\overline\sigma^2(\vec X_n)  & = \frac{S(\vec X_n)(n-1)}{\chi_{\alpha}^2(n-1)},
+\end{align}
+где: $n$ — объем выборки, $\chi_{\alpha}^2(n-1)$ — квантиль уровня $\alpha$ для распределения $\chi^{2}$ с $n-1$ степенями свободы, $\alpha$ — величина, равная $\frac{(1-\gamma)}2$.
+
+\pagebreak
+\section{Текст программы}
+
+\lstinputlisting[language=Matlab]{../lab2.m}
+
+\pagebreak
+\section{Результаты расчётов}
+
+\begin{equation*}
+	\begin{aligned}
+		&\hat\mu                      &= & &-7,660917; \\
+		&S^2                          &= & & 0,777892; \\
+		&\underline\mu(\vec X_n)      &= & &-7,794389; \\
+		&\overline\mu(\vec X_n)       &= & &-7,527445; \\
+		&\underline\sigma^2(\vec X_n) &= & &0,636386; \\
+		&\overline\sigma^2(\vec X_n)  &= & &0,976353.
+	\end{aligned}
+\end{equation*}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{inc/img/figure1}
+	\caption{График оценки математического ожидания}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.9\linewidth]{inc/img/figure2}
+	\caption{График оценки дисперсии}
+\end{figure}
+
+\end{document}
