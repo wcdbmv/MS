@@ -1,0 +1,79 @@
+\documentclass[a4paper,oneside,12pt]{extreport}
+
+\include{preamble}
+
+\begin{document}
+
+\include{title}
+
+\paragraph*{Вариант 10}
+
+\section*{Задача № 1 (Предельные теоремы теории вероятности)}
+
+Исследователь зафиксировал по одной реализации каждой из независимых случайных величин $X_1, \ldots, X_{200}$.
+Известно, что $DX_i \leqslant 4$, $i = \overline{1;200}$.
+Оценить вероятность того, что отклонение среднего арифметического этих случайных величин от среднего арифметического их математического ожидания не превосходит $0,2$.
+
+\paragraph{Решение.}
+Пусть
+\begin{align*}
+	Y &= \frac{1}{200}\sum_{i=1}^{200}X_i, \\
+	DY &= \frac{1}{40000}\sum_{i=1}^{200}DX_i \leqslant \frac{1}{40000} \cdot 200 \cdot 4 = 0,02.
+\end{align*}
+
+Требуется найти $P\{\abs{Y - MY} \leqslant 0,2\} = 1 - P\{\abs{Y- MY} \geqslant 0,2\}$.
+
+Согласно второму неравенству Чебышева, $\displaystyle P\{\abs{Y- MY} \geqslant 0,2\} \leqslant \frac{DY}{0,04} \leqslant 0,5$.
+
+\begin{equation*}
+	P\{\abs{Y- MY} \leqslant 0,2\} \geqslant 1 - 0,5 = 0,5.
+\end{equation*}
+
+\paragraph{Ответ:} $P\{\abs{Y- MY} \leqslant 0,2\} \geqslant 0,5$.
+
+\pagebreak
+\section*{Задача № 2 (Метод моментов)}
+
+С использованием метода моментов для случайной выборки $\vec X = (X_1, \ldots, X_n)$ из генеральной совокупности $X$ найти точечные оценки указанных параметров заданного закона распределения $\displaystyle f_X(x) = \frac{x^\theta}{\Gamma(\theta + 1)}e^{-x}, x>0$.
+
+\paragraph{Решение.}
+\begin{gather*}
+	\Gamma(\theta) = \int_0^\infty t^{\theta-1}e^{-t}\,\mathrm dt, \quad \Gamma(\theta + 1) = \theta\Gamma(\theta), \\
+	m_1 = MX = \int_0^\infty \frac{x^\theta x}{\Gamma(\theta + 1)}e^{-x} \, \mathrm dx = \frac{1}{\Gamma(\theta + 1)}\int_0^\infty x^{\theta+1}e^{-x}\,\mathrm dx = \frac{\Gamma(\theta + 2)}{\Gamma(\theta + 1)} = \theta + 1, \\
+	\hat\mu_1 = \overline x \quad\Rightarrow\quad \theta + 1 = \overline x \quad\Rightarrow\quad \theta = \overline x - 1.
+\end{gather*}
+
+\paragraph{Ответ:} $\theta = \overline x - 1$.
+
+
+\pagebreak
+\section*{Задача № 3 (Метод максимального правдоподобия)}
+
+С использованием метода максимального правдоподобия для случайной выборки $\vec X = (X_1, \ldots, X_n)$ из генеральной совокупности $X$ найти точечные оценки параметров заданного закона распределения.
+Вычислить выборочные значения найденных оценок для выборки $\vec x_5 = (x_1, \ldots, x_5)$.
+$f_X(x) = 2\theta xe^{-\theta x^2}$, $x > 0$, $\vec x_5 = (2, 4, 3, 6, 1)$.
+
+\paragraph{Решение.}
+\begin{gather*}
+	L(\vec x_5, \theta) = \prod_{i=1}^5 f_X(x_i) = \prod_{i=1}^5 \left(2\theta x_ie^{-\theta x_i^2}\right) = 2^5\theta^5 \prod_{i=1}^5 x_i \cdot \exp\left(\sum_{i=1}^5(-\theta x_i^2)\right). \\
+	\ln L(\vec x_5, \theta) = 5\ln2 + 5\ln\theta + \sum_{i=1}^5\ln x_i - \theta\sum_{i=1}^5 x_i^2. \\
+	\frac{\partial \ln L(\vec x_5, \theta)}{\partial\theta} = \frac 5\theta - \sum_{i=1}^5 x_i^2 \quad\Rightarrow\quad \hat\theta = \frac{5}{\sum_{i=1}^5 x_i^2} = \frac 5{4 + 16 + 9 + 36 + 1} = \frac 5{66}.
+\end{gather*}
+
+\paragraph{Ответ:} $\displaystyle \frac 5{66}$.
+
+\pagebreak
+\section*{Задача № 4 (Доверительные интервалы)}
+
+После обработки $n = 8$ результатов независимых наблюдений нормально распределённой случайной величины $X$ получено значение $\sigma^2(\vec X_n) = 5,75$ смещённой оценки выборочной дисперсии.
+С какой вероятностью можно гарантировать выполнение неравенства $\vec X_n - 6,2 < MX < \vec X_n + 6,2$?
+
+\paragraph{Решение.}
+\begin{multline*}
+	P\{\vec X_n - 6,2 < MX < \vec X_n + 6,2\} = P\{\vec X_n - MX - 6,2 < 0 < \vec X_n - MX + 6,2\} = \\
+	= P\left\{\abs{\vec X_n - MX} < 6,2\right\} = 1 -P\left\{\abs{\vec X_n - MX} \geqslant 6,2\right\} \geqslant 1 - \frac1n\frac{DX}{6,2^2} = 1 - \frac1{64}\cdot\frac{5,75}{38,44} = 0,997.
+\end{multline*}
+
+\paragraph{Ответ:} $0,997$.
+
+\end{document}
